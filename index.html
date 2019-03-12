@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta charset="utf-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>巴黎人祈愿锦鲤壕礼</title>
+  <style>.container{background:url(images/bg.jpg)no-repeat}.facula{background:url(images/facula.png)no-repeat}.sail{background:url(images/sail.png)no-repeat}.fin.win a{background:url(images/btn-red.png)no-repeat}.fin.lose a{background:url(images/btn-gold.png)no-repeat}</style>
+  <link rel="stylesheet" href="css/cny_koi_fish.css" />
+  <link rel="stylesheet" href="styles/index.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+
+ </head>
+ <body>
+   <!-- {#  -->
+  <link href="{{bundle_css}}" rel="stylesheet" type="text/css" /> <!-- #}  -->
+  <audio id="bgm" style="opacity: 0;" src="images/audio/audio.mp3" preload="preload" loop="loop"></audio>
+   <!-- {%if is_follower==True%}  -->
+  <div class="container initial">
+  <!--   {%else%}  -->
+   <div class="container not-follower">
+    <!--  {%end%}  -->
+    <div class="facula"></div>
+    <div class="fountain">
+     <img src="images/fountain.png" />
+    </div>
+    <div class="fishes">
+     <img src="images/fishes.png" />
+    </div>
+    <canvas id="pool" width="300" height="500"></canvas>
+    <div class="wave">
+     <img class="back" src="images/wave-back.png" />
+     <img class="front" src="images/wave-front.png" />
+     <div class="start-btn up" id="start-btn">
+      <img src="images/btn-start.png" class="up" />
+      <img src="images/btn-start-down.png" class="down" />
+     </div>
+    </div>
+    <div class="title">
+     <img src="images/title.png" />
+    </div>
+    <div class="sail prestart">
+     <div class="prestart">
+      <div>
+       准备开始
+      </div>
+      <div class="preCountdown">
+       3
+      </div>
+     </div>
+     <div class="start">
+      <div>
+       当前分数
+      </div>
+      <div class="point">
+       0
+      </div>
+      <div>
+       <span>剩余时间</span>
+       <span class="countdown">00:30:00</span>
+      </div>
+     </div>
+     <div class="fin win">
+      <!--  {%if is_winner==True%}  -->
+      <div>
+       您已经赢取今期的奖品 <!-- {%if next_date %}  -->
+       <br />请尽快使用<!--  {%end%}  -->
+      </div> <!-- {%else%}  -->
+      <div>
+       您的得分
+      </div>
+      <div class="point">
+        <!-- {{int(score --> 
+      </div>
+      <div>
+       恭喜您！锦鲤正游去
+       <br />实现您的愿望
+      </div><!--  {% end %}  -->
+      <div>
+       <img src="{{prize_img}}" />
+      </div>
+      <div class="try-again-aside">
+       <!--  {%if next_date %}  -->提提您
+       <br />下一期幸运锦鲤胸章
+       <br />将于 <!-- {{next_date}}  -->推出。
+       <br />集齐四款，让好运齐来！<!--  {%else%} --> 请尽快使用
+       <br />让好运齐来！ <!-- {%end%}  -->
+      </div>
+      <a class="getCoupon" href="###">领取卡券</a>
+     </div>
+     <div class="fin lose">
+      <div>
+       您的得分
+      </div>
+      <div class="point">
+       <!--  {{int(score  -->
+      </div>
+      <div class="error-msg"></div>
+      <div class="try-again-aside">
+       提提您
+       <br />集齐四款开运襟章
+       <br />让好运齐来！
+      </div>
+      <a class="tryAgain">再玩一次</a>
+      <div class="result"></div>
+     </div>
+    </div>
+    <!-- <div class="qrcode">
+     <img src="images/qrcode.jpg" />
+    </div> -->
+    <div class="mask">
+     <div class="loader lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+     </div>
+    </div>
+    <div class="logo">
+     <img src="images/pm_logo_bottom.png" />
+    </div>
+    <div id="tc_content" class="pop alert hide">
+     <h3>活动规则</h3>
+     <ol>
+      <li>此活动为”澳门金沙度假区”官方微信粉丝专享。</li>
+      <li>每位参加者只限使用单一微信帐户参与活动。</li>
+      <li>点击”锦鲤”获取指定分数即可赢得奖赏。</li>
+      <li>每人每份奖品于指定时段内只限换领一次。</li>
+      <li>参加者须年满21岁。</li>
+      <li>活动日期：即日起至2019年2月28日。</li>
+      <li>如有任何争议，”澳门金沙度假区”官方微信公众号持有最终裁决权。</li>
+     </ol>
+     <div class="btn">
+      <button class="closeTCBtn">我知道了</button>
+     </div>
+    </div>
+    <a href="javascript:;" class="tcBtn">活动规则</a>
+    <a href="javascript:void(0)" class="btn-mute play" id="audio"><img src="images/mute.svg" alt="" /></a>
+    <div class="rules">
+     <img src="images/game_rules.png" />
+     <a class="rules-btn">我知道了</a>
+    </div>
+   </div> <!-- {%raw xsrf_form_html()%}  -->
+   <script src="jquery-1.11.3.js"></script>
+   <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+      <script>
+
+      /* 为方便前端测试，以下所有带注释的所在行的属性值都已被写成固定的静态数值，后端修改时需要替换成注释里的动态值。
+          如: "openid":"openid", //"{{openid}}",  
+              需要改成"openid":"{{openid}}",
+      */
+
+     window.config = {
+        "openid":"openid", //"{{openid}}",
+        "unionid":"unionid", //"{{unionid}}",
+        "channel":"channel", //"{{channel}}",
+        "fish_img":"./images/flower.png", //"{{fish_img}}",
+        "prize_img": "./images/prize-heart.png", //"{{prize_img}}",
+        "is_winner": false, //"{ % raw json_encode(is_winner)% }",
+        "score": "score",//"{{score}}",
+        "is_follower": true, //"{ % raw json_encode(is_follower)% }",
+        "is_active": true, //"{ % raw json_encode(is_active)% }",
+        "next_date":"next_date",// "{{next_date}}",
+        "prize": "", //"{ % raw json_encode(prize)% }",
+        "jsapi_conf": { }, //"{ % raw json_encode(jsapi_conf)% }",
+        "share_conf": { }, //"{ % raw json_encode(share_conf)% }",
+    };
+    wx.config({
+        debug: true, 
+        appId: window.config.jsapi_conf.appid, 
+        timestamp: window.config.jsapi_conf.timestamp, 
+        nonceStr: window.config.jsapi_conf.noncestr,
+        signature: window.config.jsapi_conf.signature, 
+        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'addCard'] 
+    });
+    wx.ready(function() {
+        wx.onMenuShareAppMessage({
+            title: "title", //"{ % raw json_encode(share_conf['title'])% }",
+            desc: "desc", //"{ % raw json_encode(share_conf['desc'])% }",
+            imgUrl: "imgUrl", //"{ % raw json_encode(share_conf['imgUrl'])% }",
+            link: "link", //"{ % raw json_encode(share_conf['link'])% }",
+            success: function() {},
+            cancel: function() {}
+        });
+        wx.onMenuShareTimeline({
+            title: "title", //"{ % raw json_encode(share_conf['title'])% }",
+            imgUrl: "imgUrl", //"{ % raw json_encode(share_conf['imgUrl'])% }",
+            link: "link", //"{ % raw json_encode(share_conf['link'])% }",
+            success: function() {},
+            cancel: function() {}
+        })
+    })
+    window.cardList = [] ;
+    wx.ready(function(){
+        document.querySelector('.getCoupon').onclick = function(){
+            this.classList.add('disabled') ;
+            this.onclick = null;
+            wx.addCard({
+              cardList: window.cardList,
+              success: function(res) {
+                  let dom = document.querySelector('.result') ;
+                  if (dom) {
+                        dom.innerText = "领取成功！"
+                  }
+              }
+              })
+          }
+        })
+       </script>
+       <script src="dist/main.js"></script>
+  </div>
+ </body>
+</html>

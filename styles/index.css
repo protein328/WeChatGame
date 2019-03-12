@@ -1,0 +1,654 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background-size: 100%;
+}
+
+.facula {
+  width: 150%;
+  height: 150%;
+  background-size: 100% 100%;
+  background-position: center top;
+  position: absolute;
+  bottom: 0%;
+  left: -25%;
+  animation: facula_drop 200s cubic-bezier(0.53, 0.65, 0.26, 1) forwards;
+  animation-iteration-count: 1;
+}
+
+@keyframes facula_drop {
+  0% {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(0, 50%);
+  }
+}
+.fountain {
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  top: 3rem;
+  transform: translate(0, -10%) scale(1.2);
+}
+
+.fountain img {
+  width: 100%;
+  pointer-events: none;
+}
+
+.wave {
+  position: absolute;
+  width: 100%;
+  bottom: 0rem;
+  left: 0;
+  z-index: 40;
+  top: 7.5rem;
+}
+
+.wave .back {
+  position: absolute;
+  z-index: 10;
+  width: 140%;
+  top: 0;
+  left: 0%;
+  animation: wave2 10s linear infinite alternate;
+}
+
+.wave .front {
+  position: absolute;
+  z-index: 20;
+  width: 140%;
+  height: calc(100% - 20px);
+  min-height: 3.5rem;
+  top: 20px;
+  right: 0;
+  animation: wave 10s linear infinite alternate;
+}
+
+@keyframes wave {
+  from {
+    right: 0;
+  }
+  to {
+    right: -40%;
+  }
+}
+@keyframes wave2 {
+  from {
+    left: 0;
+  }
+  to {
+    left: -40%;
+  }
+}
+.fishes {
+  position: absolute;
+  z-index: 25;
+  top: 0;
+  width: 100%;
+  top: 2rem;
+  animation-iteration-count: 1;
+  display: none;
+}
+
+.fishes img {
+  width: 100%;
+}
+
+@keyframes twist {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(20deg);
+  }
+}
+.title {
+  width: 2.5rem;
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  margin-left: -1.25rem;
+  transform: translate(0, -100%);
+  animation-iteration-count: 1;
+  z-index: 50;
+}
+
+.title img {
+  width: 100%;
+}
+
+@keyframes title_drop {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(0, 80px);
+  }
+}
+@keyframes roll_up {
+  from {
+    transform: translate(0, 80px);
+  }
+  to {
+    transform: translate(0, -100%);
+  }
+}
+#pool {
+  position: absolute;
+  z-index: 30;
+  left: 0;
+  top: 0;
+}
+
+.sail {
+  width: 4rem;
+  height: 8rem;
+  background-size: 100% 100%;
+  position: absolute;
+  z-index: 60;
+  left: 50%;
+  margin-left: -2rem;
+  top: -5rem;
+  transform: translate(0, -3rem);
+  font-size: 0.3rem;
+  color: #A00000;
+}
+.sail > div {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  line-height: 1.2;
+}
+.sail .start, .sail .prestart {
+  bottom: 1.2rem;
+}
+.sail .fin {
+  top: 0.5rem;
+  width: 3.2rem;
+  margin-left: 0.4rem;
+}
+.sail .fin img {
+  width: 70%;
+}
+.sail .fin a {
+  display: inline-block;
+  width: 2rem;
+  height: 0.8rem;
+  text-decoration: none;
+  line-height: 0.8rem;
+}
+.sail .fin.win a {
+  background-size: 100% 100%;
+  color: #fff;
+}
+.sail .fin.win .disabled {
+  background: gray;
+  color: #fff;
+}
+.sail .fin.win .try-again-aside {
+  margin: 0 0 0.1rem 0;
+}
+.sail .fin.lose a {
+  background-size: 100% 100%;
+  color: #000;
+}
+.sail .fin .try-again-aside {
+  margin: 0.6rem 0 1rem 0;
+  font-size: 0.28rem;
+}
+.sail .preCountdown {
+  font-size: 1rem;
+}
+.sail .point {
+  font-size: 0.8rem;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+  animation-iteration-count: 1;
+}
+.sail .point.animate {
+  animation: breath 0.4s linear 0s forwards;
+}
+
+.start-btn {
+  position: absolute;
+  top: 1rem;
+  width: 30%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 30;
+  display: none;
+}
+
+.start-btn img {
+  width: 100%;
+}
+
+.start-btn .up {
+  display: block;
+}
+
+.start-btn .down {
+  display: none;
+}
+
+.start-btn.down .up {
+  display: none;
+}
+
+.start-btn.down .down {
+  display: block;
+}
+
+.tcBtn {
+  position: absolute;
+  z-index: 65;
+  top: 5px;
+  right: 5px;
+  font-size: 14px;
+  color: #2c0b00;
+}
+
+.rules {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+}
+.rules img {
+  width: 5rem;
+  height: 8rem;
+  position: absolute;
+  z-index: 101;
+  top: 50%;
+  margin-top: -4rem;
+  left: 50%;
+  margin-left: -2.5rem;
+}
+.rules a {
+  position: absolute;
+  z-index: 102;
+  width: 3.2rem;
+  height: 0.8rem;
+  margin-top: -0.4rem;
+  top: calc(50% + 3.3rem);
+  left: 50%;
+  margin-left: -1.6rem;
+  font-size: 0.35rem;
+  text-align: center;
+  color:#fff;
+  background:rgba(255,255,255,0.3);
+  line-height: 0.8rem;
+  border-radius: 0.17rem;
+}
+
+.btn-mute {
+  opacity: 0.4;
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  z-index: 65;
+}
+.btn-mute img {
+  width: 20px;
+}
+
+.btn-mute.play {
+  opacity: 1;
+}
+
+.logo {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 0;
+}
+.logo img {
+  width: 100%;
+}
+
+.container.initial .facula {
+  animation: none;
+}
+.container.initial .wave .front {
+  animation: none;
+}
+.container.initial .wave .back {
+  animation: none;
+}
+.container.initial .fishes {
+  display: block;
+  animation: none;
+}
+.container.initial .title {
+  transform: translate(0, 0);
+  animation: none;
+}
+.container.initial .fountain {
+  transform: translate(0, 0) scale(1);
+}
+.container.initial .start-btn {
+  display: block;
+}
+
+.container.loaded .rules {
+  transform: scale(1, 0.5);
+  display: block;
+  opacity: 0;
+  z-index: 1;
+}
+
+.container.loaded .fishes, .container.showrules .fishes {
+  display: block;
+  animation: twist 1s linear forwards;
+}
+.container.loaded .title, .container.showrules .title {
+  animation: title_drop 0.5s ease-in forwards;
+}
+.container.loaded .fountain, .container.showrules .fountain {
+  transform: translate(0, 0) scale(1);
+}
+.container.loaded .start-btn, .container.showrules .start-btn {
+  display: block;
+}
+
+.container.showrules .rules {
+  display: block;
+  transform: scale(1, 1);
+  transition: all 0.4s ease-in-out;
+  opacity: 1;
+  z-index: 1000;
+}
+
+.container.not-follower .title {
+  animation: title_drop 0.5s ease-in forwards;
+}
+.container.not-follower .fountain {
+  transform: translate(0, 0) scale(1);
+}
+.container.not-follower .qrcode {
+  display: block;
+}
+
+.container.prestart .title,.container.start .title {
+  animation: roll_up 0.4s ease-in forwards;
+}
+
+.container.prestart .fountain,.container.start .fountain {
+  transform: translate(0, -10%) scale(1.2);
+  transition: transform 0.8s ease-in;
+}
+.container.prestart .sail {
+  transform: translate(0, 0);
+  transition: transform 0.4s 0.4s ease-in;
+}
+.container.prestart .sail > div:not(.prestart) {
+  display: none;
+}
+.container.prestart .sail > .prestart {
+  display: block;
+}
+.container.prestart .tcBtn {
+  display: none;
+}
+
+.container.start .sail {
+  transform: translate(0, 0);
+  line-height: 1.1;
+}
+.container.start .sail > div:not(.start) {
+  display: none;
+}
+.container.start .sail > .start {
+  display: block;
+}
+.container.start .tcBtn {
+  display: none;
+}
+.container.start .btn-mute {
+  display: none;
+}
+
+.container.fin .sail {
+  transform: translate(0, 4.8rem);
+  transition: transform 0.4s 0.2s ease-in-out;
+}
+.container.fin .sail > div:not(.fin) {
+  display: none;
+}
+.container.fin .sail > .fin {
+  display: block;
+}
+.container.fin .sail.win > div:not(.win) {
+  display: none;
+}
+.container.fin .sail.win > .win {
+  display: block;
+}
+.container.fin .sail.lose > div:not(.lose) {
+  display: none;
+}
+.container.fin .sail.lose > .lose {
+  display: block;
+}
+.container.fin .wave .back {
+  animation: none;
+}
+.container.fin .wave .front {
+  animation: none;
+}
+.container.fin .logo {
+  transition: opacity 1s 0.4s linear;
+  opacity: 1;
+  z-index: 55;
+}
+
+@keyframes breath {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.mask {
+  position: absolute;
+  background: rgba(255, 215, 0, 0.5);
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.fin .mask {
+  display: flex;
+  z-index: 50;
+}
+.fin .mask .loader {
+  display: none;
+}
+
+.loading.fin .mask {
+  z-index: 70;
+  display: flex;
+}
+.loading.fin .mask .loader {
+  display: block;
+}
+
+.qrcode {
+  z-index: 80;
+  display: none;
+  position: absolute;
+  width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.qrcode img {
+  width: 100%;
+}
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.lds-ellipsis div {
+  position: absolute;
+  top: 27px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+#tc_content {
+  font-size: 14px;
+  color: #2C0B00;
+  line-height: 150%;
+  padding: 0.8em 0.4rem;
+  position: absolute;
+  background: #fff;
+  border-radius: 4px;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+}
+
+#tc_content ol {
+  padding-left: 0.3rem;
+}
+
+#tc_content li {
+  padding-bottom: 0.2rem;
+}
+
+#tc_content h3 {
+  font-size: 20px;
+  text-align: center;
+  line-height: 200%;
+}
+
+#tc_content > div {
+  text-align: center;
+}
+
+#tc_content > div.conditions {
+  max-width: calc(100% - 40px);
+  overflow: scroll;
+}
+
+#tc_content > div.btn {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 15px;
+}
+
+#tc_content > div > button {
+  width: 60%;
+  background: goldenrod;
+  color: #fff;
+  font-size: 0.3rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  border-radius: 4px;
+}
+
+.pop {
+  transition: all 0.5s;
+}
+
+.pop.hide {
+  transform: scale(1, 0.5);
+  bottom: 0;
+  opacity: 0;
+  z-index: -1;
+  visibility: hidden;
+}
+
+.pop.show {
+  transform: scale(1, 1);
+  bottom: 0;
+  opacity: 1;
+  z-index: 1000;
+  visibility: visible;
+}
+
+/*# sourceMappingURL=index.css.map */
